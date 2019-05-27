@@ -3,12 +3,9 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RoomRepository")
- * @Vich\Uploadable
  */
 class Room
 {
@@ -20,87 +17,143 @@ class Room
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $number;
+    private $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $available;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $size;
-
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
-     * @Vich\UploadableField(mapping="rooms", fileNameProperty="imageName")
-     * 
-     * @var File
-     */
-    private $imageFile;
+    private $minCap;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *
-     * @var string
      */
-    private $imageName;
+    private $maxCap;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $beds;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Image", inversedBy="roomImage")
+     */
+    private $image;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Extra", inversedBy="roomExtra")
+     */
+    private $extra;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="roomCategory")
+     */
+    private $category;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNumber(): ?int
+    public function getDescription(): ?string
     {
-        return $this->number;
+        return $this->description;
     }
 
-    public function setNumber(int $number): self
+    public function setDescription(?string $description): self
     {
-        $this->number = $number;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getSize(): ?int
+    public function getAvailable(): ?bool
     {
-        return $this->size;
+        return $this->available;
     }
 
-    public function setSize(int $size): self
+    public function setAvailable(bool $available): self
     {
-        $this->size = $size;
+        $this->available = $available;
 
         return $this;
     }
 
-    /**
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $imageFile
-     */
-    public function setImageFile(?File $imageFile = null): void
+    public function getMinCap(): ?int
     {
-        $this->imageFile = $imageFile;
-
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
+        return $this->minCap;
     }
 
-    public function getImageFile(): ?File
+    public function setMinCap(int $minCap): self
     {
-        return $this->imageFile;
+        $this->minCap = $minCap;
+
+        return $this;
     }
 
-    public function setImageName(?string $imageName): void
+    public function getMaxCap(): ?string
     {
-        $this->imageName = $imageName;
+        return $this->maxCap;
     }
 
-    public function getImageName(): ?string
+    public function setMaxCap(string $maxCap): self
     {
-        return $this->imageName;
+        $this->maxCap = $maxCap;
+
+        return $this;
+    }
+
+    public function getBeds(): ?int
+    {
+        return $this->beds;
+    }
+
+    public function setBeds(int $beds): self
+    {
+        $this->beds = $beds;
+
+        return $this;
+    }
+
+    public function getImage(): ?Image
+    {
+        return $this->image;
+    }
+
+    public function setImage(?Image $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getExtra(): ?Extra
+    {
+        return $this->extra;
+    }
+
+    public function setExtra(?Extra $extra): self
+    {
+        $this->extra = $extra;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }

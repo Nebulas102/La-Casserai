@@ -12,10 +12,10 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      */
-    public function index(BookingRepository $bookingRepository)
+    public function index()
     {
-        return $this->render('default/index.html.twig', [
-            'bookingbetweens' => $bookingRepository->dateBetween('2019-05-21', '2019-05-30')
-        ]);
+        // return $this->render('default/index.html.twig', [
+        //     'bookingbetweens' => $bookingRepository->dateBetween('2019-05-21', '2019-05-30')
+        // ]);
     }
 }
