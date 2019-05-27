@@ -1,16 +1,95 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
+        <head>
+            <title>{% block title %}Welcome!{% endblock %}</title>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            <meta name="description" content="">
+            <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+            <meta name="generator" content="Jekyll v3.8.5">
+            <title>La Casserai</title>
+
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            {% block stylesheets %}{% endblock %}
+            <!-- Custom styles for this template -->
+            <link href="carousel.css" rel="stylesheet">
+        </head>
+        <style>
+
+            body{ 
+                background-image: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
+            }
+
+            h2{ 
+                color:white;
+            }
+
+            p{ 
+                color:white;
+            }
+
+        </style>
     <body>
-        {% block body %}{% endblock %}
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('default') }}">Home</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('logboek_index') }}">Logboek</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('truck_index') }}">Truck</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('user_index') }}">User</a>
+                        </li>
+                    {% elseif is_granted('ROLE_USER') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('logboek_index') }}">Logboek</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a class="navbar-brand mx-auto" href="{{ path('default') }}">La Casserai</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("fos_user_profile_show") }}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("fos_user_security_logout") }}">Logout {{ app.user }}</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("fos_user_registration_register") }}">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path("fos_user_security_login") }}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+        {% block body %}
+        {% endblock %}
         {% block content %}
             {% block fos_user_content %}{% endblock %}
         {% endblock %}
+          <footer class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>© 2017-2019 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+            </footer>
         {% block javascripts %}{% endblock %}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
