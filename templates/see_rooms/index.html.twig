@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello SeeRoomsController!{% endblock %}
+
+{% block body %}
+
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+          <h1 class="display-4">Rooms</h1>
+        </div>
+
+<div class="container">
+    <div class="row">
+        {% for room in rooms  %}
+         <div class="col-md-4" style="margin-top:20px;margin-bottom:20px;">
+          <div class="card">
+            {% for image in room.image %}
+            <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" class="card-img-top" style="height: 225px; width: 100%; display: block;">
+          {% endfor %}
+            <div class="card-body">
+              <h5 class="card-title">{{ room.roomname}}</h5>
+              <h5\4 class="pricing-card-title">$ {{ room.price }} <small class="text-muted">/ a day</small></h1>
+              {% for extra in extras %}
+              <p class="card-text">{{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }}</p>
+              <h5 class="pricing-card-title">${{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h1>
+              {% endfor %}
+              <a class="btn btn-outline-secondary" href="/booking/{{ room.id }}">Book</a>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+    </div>
+</div>
+{% endblock %}

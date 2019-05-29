@@ -54,4 +54,9 @@ class Extra
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return (string)$this->getDescription() . $this->getExtraPrice();
+    }
 }

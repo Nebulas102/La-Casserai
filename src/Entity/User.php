@@ -67,7 +67,7 @@ class User extends BaseUser
     private $country;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Organisation", mappedBy="function")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Organisation")
      */
     private $organisation_id;
 
@@ -76,10 +76,21 @@ class User extends BaseUser
      */
     private $last_activity;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $function;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservation", mappedBy="user")
+     */
+    private $reservationUser;
+
     public function __construct()
     {
         parent::__construct();
         $this->organisation_id = new ArrayCollection();
+        $this->reservationUser = new ArrayCollection();
         // your own logic
     }
 
@@ -230,6 +241,49 @@ class User extends BaseUser
     public function setLastActivity(?\DateTimeInterface $last_activity): self
     {
         $this->last_activity = $last_activity;
+
+        return $this;
+    }
+
+    public function getFunction(): ?string
+    {
+        return $this->function;
+    }
+
+    public function setFunction(?string $function): self
+    {
+        $this->function = $function;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservationUser(): Collection
+    {
+        return $this->reservationUser;
+    }
+
+    public function addReservationUser(Reservation $reservationUser): self
+    {
+        if (!$this->reservationUser->contains($reservationUser)) {
+            $this->reservationUser[] = $reservationUser;
+            $reservationUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservationUser(Reservation $reservationUser): self
+    {
+        if ($this->reservationUser->contains($reservationUser)) {
+            $this->reservationUser->removeElement($reservationUser);
+            // set the owning side to null (unless already changed)
+            if ($reservationUser->getUser() === $this) {
+                $reservationUser->setUser(null);
+            }
+        }
 
         return $this;
     }

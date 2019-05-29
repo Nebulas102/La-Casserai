@@ -13,7 +13,11 @@
             </tr>
             <tr>
                 <th>Imagefile</th>
-                <td>{{ image.imagefile }}</td>
+                <td<img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" style="width:125px;height:125px;"></td>
+            </tr>
+            <tr>
+                <th>ImageName</th>
+                <td>{{ image.imageName }}</td>
             </tr>
         </tbody>
     </table>
