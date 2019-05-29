@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use App\Repository\BookingRepository;
 
 class DefaultController extends AbstractController
 {
@@ -14,8 +12,8 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
-        // return $this->render('default/index.html.twig', [
-        //     'bookingbetweens' => $bookingRepository->dateBetween('2019-05-21', '2019-05-30')
-        // ]);
+        return $this->render('default/index.html.twig', [
+            'controller_name' => 'DefaultController',
+        ]);
     }
 }

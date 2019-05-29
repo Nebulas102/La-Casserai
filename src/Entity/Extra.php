@@ -2,8 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,24 +17,14 @@ class Extra
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $description;
 
     /**
      * @ORM\Column(type="float")
      */
-    private $addPrice;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Room", mappedBy="extra")
-     */
-    private $roomExtra;
-
-    public function __construct()
-    {
-        $this->roomExtra = new ArrayCollection();
-    }
+    private $extra_price;
 
     public function getId(): ?int
     {
@@ -48,52 +36,21 @@ class Extra
         return $this->description;
     }
 
-    public function setDescription(?string $description): self
+    public function setDescription(string $description): self
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function getAddPrice(): ?float
+    public function getExtraPrice(): ?float
     {
-        return $this->addPrice;
+        return $this->extra_price;
     }
 
-    public function setAddPrice(float $addPrice): self
+    public function setExtraPrice(float $extra_price): self
     {
-        $this->addPrice = $addPrice;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Room[]
-     */
-    public function getRoomExtra(): Collection
-    {
-        return $this->roomExtra;
-    }
-
-    public function addRoomExtra(Room $roomExtra): self
-    {
-        if (!$this->roomExtra->contains($roomExtra)) {
-            $this->roomExtra[] = $roomExtra;
-            $roomExtra->setExtra($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRoomExtra(Room $roomExtra): self
-    {
-        if ($this->roomExtra->contains($roomExtra)) {
-            $this->roomExtra->removeElement($roomExtra);
-            // set the owning side to null (unless already changed)
-            if ($roomExtra->getExtra() === $this) {
-                $roomExtra->setExtra(null);
-            }
-        }
+        $this->extra_price = $extra_price;
 
         return $this;
     }

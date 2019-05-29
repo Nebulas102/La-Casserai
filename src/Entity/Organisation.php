@@ -22,7 +22,27 @@ class Organisation
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $zip;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255)
      */
     private $website;
 
@@ -34,12 +54,9 @@ class Organisation
     /**
      * @ORM\Column(type="integer")
      */
-    private $phoneNr;
+    private $phone_nr;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Adress", inversedBy="organisationsAdress")
-     */
-    private $adress;
+
 
     public function getId(): ?int
     {
@@ -58,12 +75,60 @@ class Organisation
         return $this;
     }
 
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getZip(): ?string
+    {
+        return $this->zip;
+    }
+
+    public function setZip(string $zip): self
+    {
+        $this->zip = $zip;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
     public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    public function setWebsite(?string $website): self
+    public function setWebsite(string $website): self
     {
         $this->website = $website;
 
@@ -84,25 +149,14 @@ class Organisation
 
     public function getPhoneNr(): ?int
     {
-        return $this->phoneNr;
+        return $this->phone_nr;
     }
 
-    public function setPhoneNr(int $phoneNr): self
+    public function setPhoneNr(int $phone_nr): self
     {
-        $this->phoneNr = $phoneNr;
+        $this->phone_nr = $phone_nr;
 
         return $this;
     }
 
-    public function getAdress(): ?Adress
-    {
-        return $this->adress;
-    }
-
-    public function setAdress(?Adress $adress): self
-    {
-        $this->adress = $adress;
-
-        return $this;
-    }
 }
