@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Reservation;
 
 class MakeReservationController extends AbstractController
 {
@@ -12,8 +13,11 @@ class MakeReservationController extends AbstractController
      */
     public function index()
     {
+        $reservations = $this->getDoctrine()->getRepository(Reservation::class)->occupiedFinder( '2019-05-05', '2019-05-09');
+        $allReservations = $this->getDoctrine()->getRepository(Reservation::class)->findall();
         return $this->render('make_reservation/index.html.twig', [
-            'controller_name' => 'MakeReservationController',
+                'reservations' => $reservations,
+                'allReservations' => $allReservations,
         ]);
     }
 }

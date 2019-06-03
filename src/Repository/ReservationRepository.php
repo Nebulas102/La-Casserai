@@ -19,32 +19,15 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    // /**
-    //  * @return Reservation[] Returns an array of Reservation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function occupiedFinder($begindate, $enddate)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this->createQueryBuilder('d')
+            ->where('d.checkin_date BETWEEN :from AND :to')
+            ->orWhere('d.checkout_date BETWEEN :from AND :to')
+            ->orWhere(':from BETWEEN d.checkin_date and d.checkout_date ')
+            ->orderBy('d.checkin_date', 'ASC')
+            ->setParameter('from', $begindate)
+            ->setParameter('to', $enddate)
+            ->getQuery()->getResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Reservation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
