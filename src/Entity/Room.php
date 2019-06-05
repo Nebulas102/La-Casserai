@@ -23,7 +23,7 @@ class Room
      */
     private $price;
 
-    /**
+    /*
      * @ORM\ManyToOne(targetEntity="App\Entity\Type", inversedBy="rooms")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -144,7 +144,7 @@ class Room
 
     public function __toString()
     {
-        return (string)$this->getImage();
+        return (string)$this->getId();
     }
 
     /**

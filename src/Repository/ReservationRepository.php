@@ -19,15 +19,17 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    public function occupiedFinder($begindate, $enddate)
+    public function occupiedFinder($checkinDate, $checkoutDate)
     {
         return $this->createQueryBuilder('d')
-            ->where('d.checkin_date BETWEEN :from AND :to')
-            ->orWhere('d.checkout_date BETWEEN :from AND :to')
-            ->orWhere(':from BETWEEN d.checkin_date and d.checkout_date ')
-            ->orderBy('d.checkin_date', 'ASC')
-            ->setParameter('from', $begindate)
-            ->setParameter('to', $enddate)
-            ->getQuery()->getResult();
+            ->where('d.checkinDate BETWEEN :from AND :to')
+            ->orWhere('d.checkoutDate BETWEEN :from AND :to')
+            ->orWhere(':from BETWEEN d.checkinDate and d.checkoutDate ')
+            ->orderBy('d.checkinDate', 'ASC')
+            ->setParameter('from', $checkinDate)
+            ->setParameter('to', $checkoutDate)
+            ->getSQL();    
+
+       return $this->     
     }
 }
