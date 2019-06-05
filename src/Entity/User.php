@@ -72,9 +72,13 @@ class User extends BaseUser
     private $organisation_id;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * Date/Time of the last activity
+     *
+     * @var \Datetime
+     *
+     * @ORM\Column(name="last_activity_at", type="datetimetz", nullable=true)
      */
-    private $last_activity;
+    protected $lastActivityAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -233,15 +237,13 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getLastActivity(): ?\DateTimeInterface
+    public function getLastActivityAt(): ?\DateTimeInterface
     {
-        return $this->last_activity;
+        return $this->lastActivityAt;
     }
-
-    public function setLastActivity(?\DateTimeInterface $last_activity): self
+    public function setLastActivityAt(?\DateTimeInterface $lastActivityAt): self
     {
-        $this->last_activity = $last_activity;
-
+        $this->lastActivityAt = $lastActivityAt;
         return $this;
     }
 
