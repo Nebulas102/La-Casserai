@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Room;
-use App\Entity\Extra;
+use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,12 +14,12 @@ class SeeRoomsController extends AbstractController
      */
     public function index()
     {
-        $extras = $this->getDoctrine()->getRepository(Extra::class)->findall();
-        $rooms = $this->getDoctrine()->getRepository(Room::class)->findall();
+        $repository = $this->getDoctrine()->getRepository(Room::class);
+        $rooms = $repository->findall();
+
         return $this->render('see_rooms/index.html.twig', [
             'controller_name' => 'SeeRoomsController',
             'rooms' => $rooms,
-            'extras' => $extras
         ]);
     }
 }

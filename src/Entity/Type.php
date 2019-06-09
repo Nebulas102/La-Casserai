@@ -100,7 +100,7 @@ class Type
 
     public function __toString()
     {
-        return (string)$this->getDescription() . $this->getExtraPrice();
+        return (string)$this->getDescription();
     }
 
 }

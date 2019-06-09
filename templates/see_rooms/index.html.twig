@@ -18,11 +18,14 @@
           {% endfor %}
             <div class="card-body">
               <h5 class="card-title">{{ room.roomname}}</h5>
-              <h5\4 class="pricing-card-title">$ {{ room.price }} <small class="text-muted">/ a day</small></h1>
-              {% for extra in extras %}
+              <h5 class="pricing-card-title">$ {{ room.price }} <small class="text-muted">/ a day</small></h1>
+          {% for extra in room.extra %}    
               <p class="card-text">{{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }}</p>
               <h5 class="pricing-card-title">${{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h1>
-              {% endfor %}
+          {% endfor %}   
+          {% for type in room.typeId %}
+              <p class="card-text">{{ type.extraPrice }}</p>
+          {% endfor %} 
               <a class="btn btn-outline-secondary" href="/room/{{ room.id }}">Book</a>
             </div>
           </div>
