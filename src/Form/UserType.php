@@ -32,7 +32,6 @@ class UserType extends AbstractType
             ->add('zip')
             ->add('city')
             ->add('country')
-            ->add('last_activity')
         ;
     }
 

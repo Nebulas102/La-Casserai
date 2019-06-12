@@ -29,7 +29,7 @@
                 <th>Zip</th>
                 <th>City</th>
                 <th>Country</th>
-                <th>Last_activity</th>
+                <th>Last_activity_at</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -57,7 +57,7 @@
                 <td>{{ user.zip }}</td>
                 <td>{{ user.city }}</td>
                 <td>{{ user.country }}</td>
-                <td>{{ user.lastActivity ? user.lastActivity|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.lastActivityAt ? user.lastActivityAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>

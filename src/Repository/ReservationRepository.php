@@ -19,15 +19,24 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    public function occupiedFinder($begindate, $enddate)
+    public function roomOccupied($checkinDate, $checkoutDate)
     {
-        return $this->createQueryBuilder('d')
-            ->where('d.checkin_date BETWEEN :from AND :to')
-            ->orWhere('d.checkout_date BETWEEN :from AND :to')
-            ->orWhere(':from BETWEEN d.checkin_date and d.checkout_date ')
-            ->orderBy('d.checkin_date', 'ASC')
-            ->setParameter('from', $begindate)
-            ->setParameter('to', $enddate)
-            ->getQuery()->getResult();
+        $query = $this->_em->createQueryBuilder();
+
+        $subquery = $this->_em->createQueryBuilder()
+            ->select('identity(reservation.room_id)')
+            ->from(Reservation::class, 'reservation')
+            ->where('reservation.start_date BETWEEN :from AND :to')
+            ->orWhere('reservation.end_date BETWEEN :from AND :to')
+            ->orWhere(':from BETWEEN reservation.start_date and reservation.end_date')
+            ->orderBy('reservation.start_date', 'ASC')
+            ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])
+            ->getDQL();
+
+
+        return $query->select('room')
+            ->from(Room::class, 'room')
+            ->where($query->expr()->notIn('room.id', $subquery))->getQuery()
+            ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])->getResult();
     }
 }

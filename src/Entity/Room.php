@@ -144,7 +144,7 @@ class Room
 
     public function __toString()
     {
-        return (string)$this->getImage();
+        return (string)$this->getId();
     }
 
     /**

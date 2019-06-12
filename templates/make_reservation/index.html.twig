@@ -3,18 +3,43 @@
 {% block title %}Hello MakeReservationController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <style>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/Robben/La Casserai/src/Controller/MakeReservationController.php'|file_link(0) }}">src/Controller/MakeReservationController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/Robben/La Casserai/templates/make_reservation/index.html.twig'|file_link(0) }}">templates/make_reservation/index.html.twig</a></code></li>
-    </ul>
-</div>
+            html,body{ 
+                background-image: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
+                height: 100%;
+            }
+
+            h2{ 
+                color:white;
+            }
+
+            p{ 
+                color:white;
+            }
+
+        </style>
+
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">Make Reservation</h1>
+    </div>
+
+    <div class="container">
+    {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+            {{ form_row(form._token) }}
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(form.checkinDate, {'attr': {'class': 'form'} }) }}
+            </div>
+            <div class="col">
+                {{ form_row(form.checkoutDate, {'attr': {'class': 'form'}}) }}
+            </div>
+        </div>
+    {{ form_end(form) }}
+    </div>    
+
 {% endblock %}
