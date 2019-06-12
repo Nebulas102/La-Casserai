@@ -23,20 +23,20 @@ class ReservationRepository extends ServiceEntityRepository
     {
         $query = $this->_em->createQueryBuilder();
 
-        $subquery = $this->_em->createQueryBuilder()
+        $occupied = $this->_em->createQueryBuilder()
             ->select('identity(reservation.room_id)')
             ->from(Reservation::class, 'reservation')
-            ->where('reservation.start_date BETWEEN :from AND :to')
-            ->orWhere('reservation.end_date BETWEEN :from AND :to')
-            ->orWhere(':from BETWEEN reservation.start_date and reservation.end_date')
-            ->orderBy('reservation.start_date', 'ASC')
+            ->where('reservation.checkin_date BETWEEN :from AND :to')
+            ->orWhere('reservation.checkout_date BETWEEN :from AND :to')
+            ->orWhere(':from BETWEEN reservation.checkin_date AND reservation.checkout_date')
+            ->orderBy('reservation.checkin_date', 'ASC')
             ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])
             ->getDQL();
 
 
         return $query->select('room')
             ->from(Room::class, 'room')
-            ->where($query->expr()->notIn('room.id', $subquery))->getQuery()
+            ->where($query->expr()->notIn('room.id', $occupied))->getQuery()
             ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])->getResult();
     }
 }

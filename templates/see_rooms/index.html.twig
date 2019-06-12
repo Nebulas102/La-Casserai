@@ -5,7 +5,7 @@
 {% block body %}
 
 <style>
-            body{ 
+          body{ 
                 background-image: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
                 height: 100%;
             }
@@ -30,9 +30,7 @@
               <p class="card-text">{{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }}</p>
               <h5 class="pricing-card-title">${{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h1>
           {% endfor %}   
-          {% for type in room.typeId %}
-              <p class="card-text">{{ type.extraPrice }}</p>
-          {% endfor %} 
+              <p class="card-text">{{ room.typeId }}</p>
               <a class="btn btn-outline-secondary" href="/room/{{ room.id }}">Book</a>
             </div>
           </div>
