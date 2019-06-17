@@ -11,7 +11,6 @@
                 <th>Id</th>
                 <th>Price</th>
                 <th>Roomname</th>
-                <th>Status</th>
                 <th>Image</th>
                 <th>Type</th>
                 <th>Extra</th>
@@ -24,7 +23,6 @@
                 <td>{{ room.id }}</td>
                 <td>{{ room.price }}</td>
                 <td>{{ room.roomname }}</td>
-                <td>{{ room.status }}</td>
                 {% for image in room.image %}
                     <td><img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" style="width:125px;height:125px;"></td>
                 {% endfor %}

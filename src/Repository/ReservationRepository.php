@@ -19,24 +19,24 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    public function roomOccupied($checkinDate, $checkoutDate)
-    {
-        $query = $this->_em->createQueryBuilder();
+    // public function roomOccupied($checkinDate, $checkoutDate)
+    // {
+    //     $query = $this->_em->createQueryBuilder();
 
-        $occupied = $this->_em->createQueryBuilder()
-            ->select('identity(reservation.room_id)')
-            ->from(Reservation::class, 'reservation')
-            ->where('reservation.checkin_date BETWEEN :from AND :to')
-            ->orWhere('reservation.checkout_date BETWEEN :from AND :to')
-            ->orWhere(':from BETWEEN reservation.checkin_date AND reservation.checkout_date')
-            ->orderBy('reservation.checkin_date', 'ASC')
-            ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])
-            ->getDQL();
+    //     $occupied = $this->_em->createQueryBuilder()
+    //         ->select('identity(reservation.room_id)')
+    //         ->from(Reservation::class, 'reservation')
+    //         ->where('reservation.checkin_date BETWEEN :from AND :to')
+    //         ->orWhere('reservation.checkout_date BETWEEN :from AND :to')
+    //         ->orWhere(':from BETWEEN reservation.checkin_date AND reservation.checkout_date')
+    //         ->orderBy('reservation.checkin_date', 'ASC')
+    //         ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])
+    //         ->getDQL();
 
 
-        return $query->select('room')
-            ->from(Room::class, 'room')
-            ->where($query->expr()->notIn('room.id', $occupied))->getQuery()
-            ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])->getResult();
-    }
+    //     return $query->select('room')
+    //         ->from(Room::class, 'room')
+    //         ->where($query->expr()->notIn('room.id', $occupied))->getQuery()
+    //         ->setParameters(['from' => $checkinDate, 'to' => $checkoutDate])->getResult();
+    // }
 }

@@ -24,6 +24,7 @@ class Reservation
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Room", inversedBy="ReservationRoom")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $room;
 

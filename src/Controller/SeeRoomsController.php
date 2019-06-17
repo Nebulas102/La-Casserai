@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Room;
-use App\Repository\RoomRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 

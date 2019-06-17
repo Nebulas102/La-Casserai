@@ -4,11 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
-use App\Entity\Reservation;
 use App\Repository\RoomRepository;
 use App\Form\MakeReservationType;
 
@@ -24,10 +20,11 @@ class MakeReservationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
-            $checkinDate = $formData['checkinDate'];
-            $checkoutDate = $formData['checkoutDate'];
+            
+            $checkinDate = $formData->GetCheckinDate();
+            $checkoutDate = $formData->GetCheckoutDate();
 
-            return $this->render('make_reservation/index.html.twig', [
+            return $this->render('make_reservation/result.html.twig', [
                 'rooms' => $roomRepository->roomOccupied($checkinDate, $checkoutDate),
             ]);
         }
