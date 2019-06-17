@@ -49,6 +49,11 @@ class Room
      */
     private $ReservatonRoom;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->image = new ArrayCollection();
@@ -174,6 +179,18 @@ class Room
                 $reservatonRoom->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
