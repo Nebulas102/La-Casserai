@@ -54,20 +54,28 @@
         </tbody>
     </table>
 
+{% for reservation in reservations %}
      <table class="table">
         <tbody>
-        {% for reservation in reservations %}
-            {% for reservation in reservation.user %}
+        <h1>Reservation from <b>{{ reservation.checkinDate ? reservation.checkinDate|date('Y-m-d') : '' }}</b> to <b>{{ reservation.checkoutDate ? reservation.checkoutDate|date('Y-m-d') : '' }}</b></h1>
+           <tr>
+                <th>Code</th>
+                <td>{{ reservation.id }}</td>
+            </tr>
+            <tr>
+                <th>Room</th>
+                <td>{{ reservation.room }}</td>
+            </tr>
             <tr>
                 <th>checkin Date</th>
-                <td>{{ reservation.checkinDate ? reservation.checkinDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reservation.checkinDate ? reservation.checkinDate|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>Checkout Date </th>
-                <td>{{ reservation.checkoutDate ? reservation.checkoutDate|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>    
-            {% endfor %}
-        {% endfor %}    
+                <td>{{ reservation.checkoutDate ? reservation.checkoutDate|date('Y-m-d') : '' }}</td>
+            </tr>       
         </tbody>
     </table>
+{% endfor %} 
+
 </div>
