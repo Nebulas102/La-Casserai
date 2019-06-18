@@ -19,10 +19,9 @@ class MakeReservationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
             
-            $checkinDate = $formData->GetCheckinDate();
-            $checkoutDate = $formData->GetCheckoutDate();
+            $checkinDate = $form->getData()->GetCheckinDate();
+            $checkoutDate = $form->getData()->GetCheckoutDate();
 
             return $this->render('make_reservation/result.html.twig', [
                 'rooms' => $roomRepository->roomOccupied($checkinDate, $checkoutDate),
