@@ -37,7 +37,7 @@
               <h5 class="pricing-card-title">€ {{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h1>
           {% endfor %}   
               <p class="card-text">{{ room.typeId }}</p>
-              <a class="btn btn-outline-secondary" href="/room/{{ room.id }}">Book</a>
+              <a class="btn btn-outline-secondary" href="{{ path('overview', {checkindate : checkindate, checkoutdate : checkoutdate, id : room.id}) }}">Book</a>
             </div>
           </div>
         </div>
