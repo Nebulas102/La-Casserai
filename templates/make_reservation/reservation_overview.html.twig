@@ -1,26 +1,32 @@
-% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
+{% block title %}Reservation Overview{% endblock %}
 {% block stylesheets %}
 
 {% endblock %}
         {% block body %}
+
+        <style>
+                html,body{ 
+                background-image: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
+                height: 100%;
+                }
+        </style>
                 {% for room in rooms %}
                         <div class="col-md-4">
                                 <div class="thumbnail images">
-                                                <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" style="width:100%;">
+                                                {% for image in room.image %}
+                                                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" style="width:100%;">
+                                                {% endfor %}
                                                 <div class="caption">
-                                                        <p>{{ room.description }}</p>
-                                                        <a href="{{ path('result_room', { checkindate : checkindate, checkoutdate : checkoutdate, id : room.id}) }}"
-                                                                      class="btn btn-outline-secondary float-left">Return
-                                                        </a>
-
+                                                <h2 style="color:white;">{{ room.roomname }}</h2>
                                                 </div>
                                 </div>
                         </div>
                         <div class="col-md-4 order-md-2 mb-4 cart">
                                 <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-muted">Your totals</span>
+                                         <a href="{{ path('result_room', {checkindate : checkindate, checkoutdate : checkoutdate, id : room.id}) }}" class="btn btn-outline-secondary float-left">Return</a>
+                                        <span class="text-muted">Your totals</span><br>
                                 </h4>
                                 <ul class="list-group mb-3">
                                         <li class="list-group-item d-flex justify-content-between lh-condensed">
@@ -42,7 +48,20 @@
                                                         <h6 class="my-0">Extra features price</h6>
                                                         <small class="text-muted">The prices for the extra features you've selected</small>
                                                 </div>
-                                                <span class="text-muted">IN PROGRESS</span>
+                                                <span class="text-muted">
+                                                        {% for extra in room.extra %}
+                                                        {{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }} €{{ extra.extraPrice }}
+                                                        {% endfor %}
+                                                </span>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                                <div>
+                                                        <h6 class="my-0">Type features price</h6>
+                                                        <small class="text-muted">The prices for the type features you've selected</small>
+                                                </div>
+                                                <span class="text-muted">
+                                                        {{ room.typeId }}
+                                                </span>
                                         </li>
                                         <li class="list-group-item d-flex justify-content-between">
                                                 <span>Total (EUR)</span>
@@ -54,7 +73,7 @@
                                                         <small class="text-muted"></small>
                                                 </div>
                                                 <span class="text-muted">
-                                                        <a href="{{ path('book', {id : room.id, startdate : startdate, enddate : enddate, occupants : occupants, total_price : total_price }) }}"
+                                                        <a href="{{ path('final', { checkindate : checkindate, checkoutdate : checkoutdate, id : room.id }) }}"
                                                            class="btn btn-outline-secondary float-right">Book now</a>
                                                 </span>
                                         </li>

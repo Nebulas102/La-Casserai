@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\ReservationRepository;
 use App\Repository\RoomRepository;
+use App\Entity\Reservation;
+use App\Entity\Room;
 use App\Form\MakeReservationType;
 
 class MakeReservationController extends AbstractController
@@ -13,19 +18,17 @@ class MakeReservationController extends AbstractController
     /**
      * @Route("/makereservation", name="make_reservation")
      */
-    public function index(RoomRepository $roomRepository, Request $request)
+    public function index(RoomRepository $roomRepository, Request $request) : Response
     {
         $form = $this->createForm(MakeReservationType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $checkinDate = $form->getData()->GetCheckinDate();
-            $checkoutDate = $form->getData()->GetCheckoutDate();
+            $data = $form->getData();
+            $checkinDate = date_format($form->getData()->GetCheckinDate(), 'Y-m-d');
+            $checkoutDate = date_format($form->getData()->GetCheckoutDate(), 'Y-m-d');
 
-            return $this->render('make_reservation/result.html.twig', [
-                'rooms' => $roomRepository->roomOccupied($checkinDate, $checkoutDate),
-            ]);
+            return $this->redirectToRoute('result_room', ['checkindate' => $checkinDate, 'checkoutdate' => $checkoutDate]);
         }
 
         return $this->render('make_reservation/index.html.twig', [
@@ -34,32 +37,28 @@ class MakeReservationController extends AbstractController
     }
 
     /**
-     * @Route("result/checkindate={checkindate}&checkoutdate={checkoutdate}", name="result_room")
+     * @Route("/result/checkindate={checkindate}&checkoutdate={checkoutdate}", name="result_room")
      */
-    public function roomSearch(RoomRepository $roomRepository, Request $request, $checkoutDate, $checkinDate)
+    public function roomSearch(RoomRepository $roomRepository, Request $request, $checkindate, $checkoutdate) : Response
     { 
         return $this->render('make_reservation/result.html.twig' ,[
-            'rooms' => $roomRepository->roomOccupied($checkinDate, $checkoutDate),
-            'checkindate' => $checkinDate,
-            'checkoutdate' => $checkoutDate,
+            'rooms' => $roomRepository->roomOccupied($checkindate, $checkoutdate),
+            'checkindate' => $checkindate,
+            'checkoutdate' => $checkoutdate,
         ]);
     }
 
     /**
      * @Route("/result/checkindate={checkindate}&checkoutdate={checkoutdate}/view/{id}", name="view")
      */
-    public function overview($checkinDate, $checkoutDate, RoomRepository $roomRepository, Request $request, $id)  : Response{
-        $dateCheckin = date_create($checkinDate);
-        $dateCheckout = date_create($checkoutDate);
+    public function overview($checkindate, $checkoutdate, RoomRepository $roomRepository, Request $request, $id) : Response
+    {
 
-        $total_days = date_diff($dateCheckin, $dateCheckout)->format("%d");
-        $total_price = $roomRepository->createQueryBuilder('u')->select('u.price')->where('id', $id);
-        return $this->render('default/overview.html.twig', [
+        return $this->render('make_reservation/reservation_overview.html.twig', [
             'rooms' => $roomRepository->findBy(['id' => $id]),
-            'total_days' => $total_days,
-            'checkindate' => $dateCheckin,
-            'checkoutdate' => $dateCheckout,
-            'total_price' => $total_price
+            'total_days' => date_diff(date_create($checkindate), date_create($checkoutdate))->format("%d"),
+            'checkindate' => $checkindate,
+            'checkoutdate' => $checkoutdate,
         ]);
 
     }
@@ -67,7 +66,7 @@ class MakeReservationController extends AbstractController
         /**
      * @Route("/result/checkindate={checkindate}&checkoutdate={checkoutdate}/view/{id}/book", name="final")
      */
-    public function book($checkinDate, $checkoutDate, RoomRepository $roomRepository, Request $request, $id)  : Response
+    public function book($checkindate, $checkoutdate, RoomRepository $roomRepository, Request $request, $id) : Response
     {
         {
                 $user = $this->container->get('security.context')->getToken()->getUser();
@@ -76,8 +75,8 @@ class MakeReservationController extends AbstractController
                 $user = $this->container->get('security.context')->getToken()->getUser();
 
                 $reservation = new Reservation();
-                $reservation->setCheckinDate(DateTime::createFromFormat($format, $checkinDate));
-                $reservation->setCheckoutDate(DateTime::createFromFormat($format, $checkoutDate));
+                $reservation->setCheckinDate(DateTime::createFromFormat($format, $checkindate));
+                $reservation->setCheckoutDate(DateTime::createFromFormat($format, $checkoutdate));
                 $reservation->setRoom($room);
                 $reservation->setUser($user);
                 $reservation->setPrice(2);

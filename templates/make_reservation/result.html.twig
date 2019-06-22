@@ -31,13 +31,13 @@
           {% endfor %}
             <div class="card-body">
               <h5 class="card-title">{{ room.roomname}}</h5>
-              <h5 class="pricing-card-title">€ {{ room.price }} <small class="text-muted">/ a day</small></h1>
+              <h5 class="pricing-card-title">€{{ room.price }} <small class="text-muted">/ a day</small></h1>
           {% for extra in room.extra %}    
               <p class="card-text">{{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }}</p>
-              <h5 class="pricing-card-title">€ {{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h1>
+              <h5 class="pricing-card-title">€{{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h1>
           {% endfor %}   
               <p class="card-text">{{ room.typeId }}</p>
-              <a class="btn btn-outline-secondary" href="{{ path('overview', {checkindate : checkindate, checkoutdate : checkoutdate, id : room.id}) }}">Book</a>
+              <a class="btn btn-outline-secondary" href="{{ path('view', {checkindate : checkindate, checkoutdate : checkoutdate, id : room.id}) }}">Book</a>
             </div>
           </div>
         </div>
