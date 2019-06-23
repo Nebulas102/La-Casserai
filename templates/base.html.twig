@@ -14,6 +14,12 @@
             <!-- Custom styles for this template -->
             <link href="carousel.css" rel="stylesheet">
         </head>
+        <style>
+            html,body{ 
+                background: #FF6B95 !important;
+                height: 100%;
+            }
+        </style>
     <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -40,7 +46,7 @@
                 <ul class="navbar-nav ml-auto">
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_SUPER_ADMIN') %}
                         <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CRUD'S</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown05" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Panel</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown05">
                             <a class="dropdown-item" href="{{ path('room_index') }}">Rooms</a>
                             <a class="dropdown-item" href="{{ path('type_index') }}">Types</a>
@@ -79,9 +85,8 @@
         {% block content %}
             {% block fos_user_content %}{% endblock %}
         {% endblock %}
-          <footer class="container">
-            <p class="float-right"><a href="#">Back to top</a></p>
-            <p>© 2017-2019 Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
+          <footer class="container text-center">
+            <p>© 2000-2019 La Casserai <a href="#">Privacy</a> · <a href="#">Terms</a></p>
             </footer>
         {% block javascripts %}{% endblock %}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

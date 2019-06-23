@@ -12,6 +12,7 @@ use App\Repository\RoomRepository;
 use App\Entity\Reservation;
 use App\Entity\Room;
 use App\Form\MakeReservationType;
+use App\Form\BookType;
 
 class MakeReservationController extends AbstractController
 {
@@ -64,22 +65,22 @@ class MakeReservationController extends AbstractController
     }
 
         /**
-     * @Route("/result/checkindate={checkindate}&checkoutdate={checkoutdate}/view/{id}/book", name="final")
+     * @Route("/result/checkindate={checkindate}&checkoutdate={checkoutdate}/view/{id}/book/price={total_price}", name="final")
      */
-    public function book($checkindate, $checkoutdate, RoomRepository $roomRepository, Request $request, $id) : Response
+    public function book($checkindate, $checkoutdate, $total_price, $id) : Response
     {
         {
-                $user = $this->container->get('security.context')->getToken()->getUser();
-                $format = 'd-m-Y';
+                $format = 'Y-m-d';
                 $room = $this->getDoctrine()->getRepository(Room::class)->find($id);
-                $user = $this->container->get('security.context')->getToken()->getUser();
+                $user = $this->get('security.token_storage')->getToken()->getUser();
+
 
                 $reservation = new Reservation();
                 $reservation->setCheckinDate(DateTime::createFromFormat($format, $checkindate));
                 $reservation->setCheckoutDate(DateTime::createFromFormat($format, $checkoutdate));
                 $reservation->setRoom($room);
                 $reservation->setUser($user);
-                $reservation->setPrice(2);
+                $reservation->setPrice($total_price);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($reservation);

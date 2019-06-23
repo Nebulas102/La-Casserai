@@ -26,11 +26,9 @@
                 {% for image in room.image %}
                     <td><img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" style="width:125px;height:125px;"></td>
                 {% endfor %}
-                {% for type in room.typeId %}
-                    <td>{{ type.extraPrice }}</td>
-                {% endfor %}
+                    <td>{{ room.typeId }}</td>
                 {% for extra in room.extra %}
-                    <td>{{ extra.ExtraPrice }}</td>
+                    <td>{{ extra.description }} €{{ extra.ExtraPrice }}</td>
                 {% endfor %}
                 <td>
                     <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
