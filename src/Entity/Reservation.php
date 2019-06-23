@@ -38,6 +38,11 @@ class Reservation
      */
     private $checkoutDate;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +92,18 @@ class Reservation
     public function setCheckoutDate(\DateTimeInterface $checkoutDate): self
     {
         $this->checkoutDate = $checkoutDate;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

@@ -30,7 +30,7 @@
                 {% endfor %}
                     <td>{{ room.typeId }}</td>
                 {% for extra in room.extra %}
-                    <td>{{ extra.ExtraPrice }}</td>
+                    <td>{{ extra.description }} €{{ extra.ExtraPrice }}</td>
                 {% endfor %}
                 <td>
                     <a href="{{ path('room_show', {'id': room.id}) }}">show</a>
