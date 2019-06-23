@@ -22,6 +22,7 @@ class MakeReservationController extends AbstractController
             
             $checkinDate = $form->getData()->GetCheckinDate();
             $checkoutDate = $form->getData()->GetCheckoutDate();
+            $occupants = $form->getData()->GetOccupants();
 
             return $this->render('make_reservation/result.html.twig', [
                 'rooms' => $roomRepository->roomOccupied($checkinDate, $checkoutDate),
@@ -32,4 +33,16 @@ class MakeReservationController extends AbstractController
             'form' => $form->createview(),
         ]);
     }
+
+    // public function book(RoomRepository $roomRepository, Request $request)
+    // {
+    //     $form = $this->createForm(MakeReservationType::class);
+    //     $form->handleRequest($request);
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+
+    //         $checkinDate = $form->getData()->GetCheckinDate();
+    //         $checkoutDate = $form->getData()->GetCheckoutDate();
+
+    // }
 }

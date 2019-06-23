@@ -49,6 +49,11 @@ class Room
      */
     private $ReservatonRoom;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $occupants;
+
     public function __construct()
     {
         $this->image = new ArrayCollection();
@@ -174,6 +179,18 @@ class Room
                 $reservatonRoom->setRoom(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOccupants(): ?float
+    {
+        return $this->occupants;
+    }
+
+    public function setOccupants(float $occupants): self
+    {
+        $this->occupants = $occupants;
 
         return $this;
     }
