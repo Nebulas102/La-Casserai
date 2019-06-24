@@ -19,7 +19,7 @@ class MakeReservationController extends AbstractController
     /**
      * @Route("/makereservation", name="make_reservation")
      */
-    public function index(RoomRepository $roomRepository, Request $request) : Response
+    public function index(Request $request) : Response
     {
         $form = $this->createForm(MakeReservationType::class);
         $form->handleRequest($request);
