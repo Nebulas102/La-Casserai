@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ user.username }}{% endblock %}
+{% block title %}{{ user.username }} bookings{% endblock %}
 
 {% block body %}
         <style>
@@ -21,6 +21,10 @@
             <tr>
                 <th>Room</th>
                 <td>{{ reservation.room }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>€{{ reservation.price }}</td>
             </tr>
             <tr>
                 <th>checkin Date</th>
