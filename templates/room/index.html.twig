@@ -10,6 +10,7 @@
             <tr>
                 <th>Id</th>
                 <th>Price</th>
+                <th>Occupants</th>
                 <th>Roomname</th>
                 <th>Image</th>
                 <th>Type</th>
@@ -22,6 +23,7 @@
             <tr>
                 <td>{{ room.id }}</td>
                 <td>{{ room.price }}</td>
+                 <td>{{ room.occupants }}</td>
                 <td>{{ room.roomname }}</td>
                 {% for image in room.image %}
                     <td><img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" style="width:125px;height:125px;"></td>

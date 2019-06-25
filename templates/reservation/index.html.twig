@@ -9,6 +9,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Room</th>
+                <th>Price</th>
                 <th>CheckinDate</th>
                 <th>CheckoutDate</th>
                 <th>actions</th>
@@ -18,6 +20,8 @@
         {% for reservation in reservations %}
             <tr>
                 <td>{{ reservation.id }}</td>
+                <td>{{ reservation.room }}</td>
+                <td>{{ reservation.price }}</td>
                 <td>{{ reservation.checkinDate ? reservation.checkinDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ reservation.checkoutDate ? reservation.checkoutDate|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

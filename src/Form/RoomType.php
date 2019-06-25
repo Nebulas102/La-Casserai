@@ -13,6 +13,7 @@ class RoomType extends AbstractType
     {
         $builder
             ->add('price')
+            ->add('occupants')
             ->add('roomname')
             ->add('type_id')
             ->add('image')
