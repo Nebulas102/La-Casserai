@@ -4,13 +4,6 @@
     <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 {% endif %}
 
-        <style>
-          html,body{ 
-                background: #FFC796;
-                height: 100%;
-            }
-        </style>
-
 <div class="container">
 <form method="post" action="{{ path("fos_user_security_check") }}" class="form-signin">
     {% if csrf_token %}

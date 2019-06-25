@@ -3,13 +3,6 @@
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
 
-        <style>
-                html,body{ 
-                background-image: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);
-                height: 100%;
-                }
-        </style>
-
     <div class="container">
         <input type="submit" value="{{ 'registration.submit'|trans }}" />
     </div>
