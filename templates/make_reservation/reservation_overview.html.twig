@@ -5,16 +5,9 @@
 
 {% endblock %}
         {% block body %}
-
-        <style>
-                html,body{ 
-                background: #FF6B95;
-                height: 100%;
-                }
-        </style>
-        
         <div class="container-fluid">
                 {% for room in rooms %}
+                        <div class="row">
                         <div class="col-md-4 order-md-2 mb-4 cart" style="margin-top:7.5px;">
                          <div class="thumbnail images">
                                                 {% for image in room.image %}
@@ -78,6 +71,7 @@
                                         </li>
                                 </ul>
                         </div>
+                </div>
                 {% endfor %}
                 </div>
         {% endblock %}

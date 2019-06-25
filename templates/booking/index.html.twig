@@ -3,12 +3,6 @@
 {% block title %}{{ user.username }} bookings{% endblock %}
 
 {% block body %}
-        <style>
-                html,body{ 
-                background:#FF6B95;
-                height: 100%;
-                }
-        </style>
 <div class="container">
     {% for reservation in reservations %}
      <table class="table">

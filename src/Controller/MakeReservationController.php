@@ -11,6 +11,7 @@ use App\Repository\ReservationRepository;
 use App\Repository\RoomRepository;
 use App\Entity\Reservation;
 use App\Entity\Room;
+use App\Entity\User;
 use App\Form\MakeReservationType;
 use App\Form\BookType;
 
@@ -52,7 +53,7 @@ class MakeReservationController extends AbstractController
     /**
      * @Route("/result/checkindate={checkindate}&checkoutdate={checkoutdate}/view/{id}", name="view")
      */
-    public function overview($checkindate, $checkoutdate, RoomRepository $roomRepository, Request $request, $id) : Response
+    public function overview($checkindate, $checkoutdate,RoomRepository $roomRepository, Request $request, $id) : Response
     {
 
         return $this->render('make_reservation/reservation_overview.html.twig', [
