@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationRepository")
+ * @Vich\Uploadable
  */
 class Reservation
 {
@@ -43,10 +45,6 @@ class Reservation
      */
     private $price;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $status;
 
     public function getId(): ?int
     {
@@ -109,18 +107,6 @@ class Reservation
     public function setPrice(float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

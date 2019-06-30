@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Staff Stats{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('/css/custom-bootstrap.css') }}">
+
+
+{% endblock %}
+        {% block body %}
+                All reservations that end today:
+<div class="container">
+        <div class="row">
+                {% for reservation_today in reservations_today %}
+                <div class="col-md-4" style="margin-top:20px;margin-bottom:20px;">
+                    <div class="card">
+                        {% for image in reservation_today.room.image %}
+                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" class="card-img-top" style="height: 225px; width: 100%; display: block;">
+                    {% endfor %}
+                        <div class="card-body">
+                        <h5 class="card-title">{{ reservation_today.room.roomname}}</h5>
+                        <h5 class="pricing-card-title">€ {{ reservation_today.room.price }} <small class="text-muted">/ a day</small></h5>
+                    {% for extra in reservation_today.room.extra %}    
+                        <p class="card-text">{{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }}</p>
+                        <h5 class="pricing-card-title">€ {{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h5>
+                    {% endfor %}   
+                        <p class="card-text">{{ reservation_today.room.typeId }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+</div>
+                All reservations that end this week:
+<div class="rooms container">
+        <div class="row">
+                {% for reservation_week in reservations_week %}
+                    <div class="col-md-4" style="margin-top:20px;margin-bottom:20px;">
+                    <div class="card">
+                        {% for image in reservation_week.room.image %}
+                        <img src="{{ vich_uploader_asset(image, 'imageFile') }}" alt="{{ image.imageName }}" class="card-img-top" style="height: 225px; width: 100%; display: block;">
+                    {% endfor %}
+                        <div class="card-body">
+                        <h5 class="card-title">{{ reservation_week.room.roomname}}</h5>
+                        <h5 class="pricing-card-title">€ {{ reservation_week.room.price }} <small class="text-muted">/ a day</small></h5>
+                    {% for extra in reservation_week.room.extra %}    
+                        <p class="card-text">{{ extra.description|length > 60 ? extra.description|slice(0, 60) ~ '...' : extra.description }}</p>
+                        <h5 class="pricing-card-title">€ {{ extra.extraPrice }} <small class="text-muted">/ one time payment</small></h5>
+                    {% endfor %}   
+                        <p class="card-text">{{ reservation_week.room.typeId }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+</div>
+        {% endblock %}
